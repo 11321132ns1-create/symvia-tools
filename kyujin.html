@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>求人票かんたんチェック</title>
+<meta name="description" content="求人票を貼り付けるだけで、法律で明示が必要な項目の抜けと、誤解を生む・年齢や性別を限定する表現を無料でチェックします。">
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#1d2330;--sub:#5d6575;--line:#dde1e8;--acc:#1f6feb;--ok:#1a7f37;--warn:#b35900;--ng:#c62828}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171c;--card:#1d2128;--ink:#e8ebf0;--sub:#a3abb8;--line:#30363f}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif}
+main{max-width:760px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:24px;margin:8px 0 4px}h2{font-size:18px;margin:24px 0 8px}
+.lead{color:var(--sub);margin:0 0 16px}
+textarea{width:100%;min-height:240px;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font:inherit}
+button{font:inherit;padding:12px 20px;border:0;border-radius:10px;background:var(--acc);color:#fff;font-weight:700;cursor:pointer;margin-top:10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0}
+.item{display:flex;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}.item:last-child{border:0}
+.badge{flex:0 0 auto;font-size:13px;font-weight:700;padding:2px 8px;border-radius:999px;height:fit-content}
+.ok{background:#e6f4ea;color:var(--ok)}.warn{background:#fff3e0;color:var(--warn)}.ng{background:#fdecea;color:var(--ng)}
+.small{font-size:13px;color:var(--sub)}a{color:var(--acc)}
+.score{font-size:32px;font-weight:800}
+.cta{border:2px solid var(--acc)}
+</style>
+</head>
+<body><main>
+<h1>求人票かんたんチェック</h1>
+<p class="lead">求人票の文章を貼り付けて「チェックする」を押すと、<b>法律で書く必要がある項目の抜け</b>と、<b>誤解を生む表現・年齢や性別を限定する表現</b>をその場で確認します。入力した文章はこのページの中だけで処理し、どこにも送りません。</p>
+
+<textarea id="t" placeholder="ここに求人票(仕事内容・給与・勤務地・勤務時間・休日・待遇など)を貼り付けてください"></textarea>
+<button id="go">チェックする</button>
+<div id="out"></div>
+
+<h2>求人票に書く必要がある項目(一覧)</h2>
+<div class="card small">
+<p>職業安定法施行規則4条の2第3項で、募集のときに示す必要がある労働条件です(厚生労働省の資料より)。広告の字数が足りないときは「詳細は面談時にお伝えします」と付けて一部を後で示せますが、最初に会う(面接など)までに全部を示す必要があります。</p>
+<ol>
+<li>仕事内容(雇い入れ直後と、<b>変更の範囲</b>)※変更の範囲は2024年4月から</li>
+<li>契約期間</li>
+<li>有期契約を更新する場合の基準(<b>通算期間・更新回数の上限</b>を含む)※2024年4月から</li>
+<li>試用期間(期間中に条件が違うならその内容も)</li>
+<li>就業場所(雇い入れ直後と、<b>変更の範囲</b>)※変更の範囲は2024年4月から</li>
+<li>就業時間(始業・終業)</li>
+<li>休憩時間</li>
+<li>休日</li>
+<li>時間外労働(残業)</li>
+<li>賃金(固定残業代があれば内訳も)</li>
+<li>加入保険</li>
+<li>受動喫煙を防止するための措置 ※2020年4月から</li>
+<li>募集する会社の名前</li>
+<li>派遣で雇う場合はその旨</li>
+</ol>
+<p><b>固定残業代を含めるとき</b>は、①固定残業代を除いた基本給の額、②何時間分で何円か、③超えた分は追加で支払う旨、の3点を書きます(若者雇用促進法の指針)。</p>
+<p><b>年齢・性別</b>: 年齢は原則として限定できません(労働施策総合推進法9条。例外は6つの場合だけで、理由を示す必要があります)。「男性歓迎」「ウエイトレス」のように性別を限定・連想させる書き方も原則できません(男女雇用機会均等法5条)。</p>
+</div>
+
+<h2>このチェックについて</h2>
+<p class="small">判定は、厚生労働省の公開資料(職業安定法5条の3・5条の4と施行規則4条の2、若者雇用促進法の指針、労働施策総合推進法9条、男女雇用機会均等法5条の解説)をもとに、言葉の有無で機械的に行っています。法律の判断や助言ではありません。書き方の確認は、最寄りの労働局・ハローワーク、社会保険労務士にご相談ください。</p>
+<p class="small">参考: <a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/haken-shoukai/r0604anteisokukaisei1.html" target="_blank" rel="noopener">令和6年4月からの明示事項の追加(厚生労働省)</a> / <a href="https://www.mhlw.go.jp/content/001250191.pdf" target="_blank" rel="noopener">職業安定法 Q&A(的確な表示)</a> / <a href="https://www.mhlw.go.jp/content/11600000/000498453.pdf" target="_blank" rel="noopener">固定残業代の明示</a> / <a href="https://www.hellowork.mhlw.go.jp/doc/leaflet_judoukitsuen202001.pdf" target="_blank" rel="noopener">受動喫煙防止措置の明示</a></p>
+
+<script>
+// 明示が必要な項目(職業安定法施行規則4条の2第3項。2024/4 追加分を含む)。言葉が1つでもあれば「書いてある」とみなす簡易判定。
+const ITEMS = [
+  { name: '仕事内容', keys: ['仕事内容', '業務内容', '職務内容', '業務', 'お仕事'], why: '従事する業務の内容' },
+  { name: '業務の変更の範囲', keys: ['変更の範囲', '変更範囲', '会社の定める業務', '変更なし'], why: '2024年4月から明示が必要(雇い入れ直後と、将来変わる範囲)', note: '「業務の変更の範囲:〇〇」のように書く' },
+  { name: '契約期間', keys: ['契約期間', '期間の定め', '雇用期間', '正社員', '無期'], why: '期間の定めの有無と期間' },
+  { name: '試用期間', keys: ['試用期間', '試用'], why: '有無と長さ。期間中に条件が違うならその内容も' },
+  { name: '就業場所', keys: ['勤務地', '就業場所', '勤務先', '所在地', '勤務場所'], why: '働く場所' },
+  { name: '就業場所の変更の範囲', keys: ['変更の範囲', '変更範囲', '転勤なし', '転勤あり', '会社の定める場所'], why: '2024年4月から明示が必要(転勤・配置換えの範囲)' },
+  { name: '就業時間', keys: ['勤務時間', '就業時間', '始業', '時〜', '時～', ':00', '：00', 'シフト'], why: '始業・終業の時刻' },
+  { name: '休憩時間', keys: ['休憩'], why: '休憩の長さ' },
+  { name: '休日', keys: ['休日', '休暇', '週休', '定休', '年間休日'], why: '休日の曜日・日数' },
+  { name: '時間外労働(残業)', keys: ['残業', '時間外'], why: '残業の有無と目安' },
+  { name: '賃金', keys: ['給与', '月給', '時給', '日給', '年収', '賃金', '基本給', '円'], why: '金額と支払い方' },
+  { name: '加入保険', keys: ['社会保険', '雇用保険', '労災', '健康保険', '厚生年金', '社保'], why: '雇用・労災・健康・厚生年金' },
+  { name: '受動喫煙防止の措置', keys: ['禁煙', '喫煙', '受動喫煙'], why: '2020年4月から明示が必要(例: 屋内禁煙)' },
+  { name: '募集する会社名', keys: ['株式会社', '有限会社', '合同会社', '会社名', '法人', '事業所名', '店'], why: '募集する者の氏名または名称' }
+];
+// 有期契約の更新の基準(有期の言葉があるときだけ)
+const FIXED_TERM = ['契約社員', '有期', '期間の定めあり', 'アルバイト', 'パート', '更新'];
+const RENEW = ['更新の有無', '更新する場合', '更新あり', '更新なし', '更新上限', '通算', '契約の更新'];
+// 誤解を生む・限定する表現(厚労省の例示をもとにした注意。最終判断は人が行う)
+const PHRASES = [
+  { re: /\d{2}\s*(歳|才)\s*(以下|未満|まで|位まで)/, lv: 'ng', msg: '年齢の上限は原則書けません(労働施策総合推進法9条)。例外に当たるなら理由も示す必要があります' },
+  { re: /(若い方|若手|20代|30代|２０代|３０代)/, lv: 'warn', msg: '実質的に年齢を限定すると受け取られるおそれがあります' },
+  { re: /(男性|女性)(歓迎|限定|のみ|向き|募集|スタッフ)|主婦|ママさん|ウエイトレス|ウェイトレス|ウエイター|ウェイター|レディ|営業マン|カメラマン|OL/, lv: 'ng', msg: '性別を限定する・性別が分かる表現は原則使えません(男女雇用機会均等法5条)' },
+  { re: /(稼げる|高収入|がっつり稼|月収\s*\d+\s*万円?\s*(も|以上)?可能|やる気次第|誰でも|未経験でも月)/, lv: 'warn', msg: '実際より良く見せると「誤解を生む表示」になります(職業安定法5条の4)。金額は条件と一緒に' },
+  { re: /(アットホーム|風通しの良い|笑顔あふれる)/, lv: 'warn', msg: '具体的な事実(人数・年齢層ではなく、教え方や休みの取り方など)に置き換えると伝わります' },
+  { re: /(モデル年収|モデル月収|年収例|月収例)/, lv: 'warn', msg: '例であることと前提(勤続年数・役職・残業時間など)を書く必要があります' }
+];
+const OT = /(固定残業|みなし残業|残業代込|残業手当込|定額残業|固定時間外)/;
+const OT3 = [
+  { name: '固定残業代を除いた基本給の額', re: /(基本給|基本月給)[^。\n]{0,20}\d/ },
+  { name: '何時間分で何円か', re: /\d+\s*時間分[^。\n]{0,30}\d/ },
+  { name: '超えた分は追加で支払う旨', re: /(超え|超過)[^。\n]{0,30}(追加|別途)[^。\n]{0,10}(支給|支払)/ }
+];
+const has = (t, keys) => keys.some(k => t.includes(k));
+document.getElementById('go').onclick = () => {
+  const t = document.getElementById('t').value.trim();
+  const out = document.getElementById('out');
+  if (t.length < 30) { out.innerHTML = '<div class="card">求人票の文章を30文字以上貼り付けてください。</div>'; return; }
+  let html = '', missing = 0;
+  html += '<h2>1. 書く必要がある項目</h2><div class="card">';
+  ITEMS.forEach(it => { const ok = has(t, it.keys); if (!ok) missing++; html += `<div class="item"><span class="badge ${ok ? 'ok' : 'ng'}">${ok ? 'あり' : '見当たらない'}</span><div><b>${it.name}</b><div class="small">${it.why}${it.note && !ok ? '。' + it.note : ''}</div></div></div>`; });
+  if (has(t, FIXED_TERM)) { const ok = has(t, RENEW); if (!ok) missing++; html += `<div class="item"><span class="badge ${ok ? 'ok' : 'ng'}">${ok ? 'あり' : '見当たらない'}</span><div><b>契約の更新の基準(有期の場合)</b><div class="small">更新の有無と判断の基準、上限があれば年数か回数(2024年4月から)</div></div></div>`; }
+  html += '</div>';
+  if (OT.test(t)) {
+    html += '<h2>2. 固定残業代の書き方</h2><div class="card">';
+    OT3.forEach(o => { const ok = o.re.test(t); if (!ok) missing++; html += `<div class="item"><span class="badge ${ok ? 'ok' : 'ng'}">${ok ? 'あり' : '見当たらない'}</span><div><b>${o.name}</b></div></div>`; });
+    html += '<div class="small">固定残業代を含めるときは、この3点を書く必要があります(若者雇用促進法の指針)。</div></div>';
+  }
+  const hits = PHRASES.filter(p => p.re.test(t));
+  html += `<h2>${OT.test(t) ? 3 : 2}. 気をつけたい表現</h2><div class="card">`;
+  html += hits.length ? hits.map(p => `<div class="item"><span class="badge ${p.lv}">${p.lv === 'ng' ? '要修正' : '注意'}</span><div>「${(t.match(p.re) || [''])[0]}」<div class="small">${p.msg}</div></div></div>`).join('') : '<div class="small">目立つ表現は見つかりませんでした。</div>';
+  html += '</div>';
+  const first = t.split(/\n/).filter(l => l.trim()).slice(0, 3).join(' / ');
+  html += `<h2>最初の3行</h2><div class="card"><div>${first.replace(/</g, '&lt;')}</div><div class="small">求人サイトの一覧では最初の数行しか見られません。「誰に・どんな仕事で・何が良いか(休み・給与・教え方など事実)」が最初の3行に入っているか見直してください。</div></div>`;
+  html = `<div class="card"><div class="score">${missing === 0 ? '抜けは見当たりません' : '見直したい所 ' + missing + ' 件'}</div><div class="small">言葉の有無で判定しています。書いてあっても内容が足りない場合や、別の言葉で書いてある場合があります。</div></div>` + html;
+  html += `<div class="card cta"><b>書き直しの見本を無料でお作りします(実績づくりのため・先着)</b><div class="small">いまの求人票をもとに、最初の3行と抜けている項目の書き方を、そのまま使える文章でお返しします。労働条件は必ず御社に確認し、推測では書きません。連絡先: symvia.works@gmail.com</div></div>`;
+  out.innerHTML = html;
+  out.scrollIntoView({ behavior: 'smooth' });
+};
+</script>
+<p class="small" style="margin-top:24px">書き方の解説: <a href="guide_koteizangyo.html">固定残業代</a> / <a href="guide_henkou_hani.html">業務・就業場所の変更の範囲</a> / <a href="guide_arbeit.html">アルバイト・パートの項目</a> / <a href="index.html">ほかの無料チェック</a></p></main></body></html>
